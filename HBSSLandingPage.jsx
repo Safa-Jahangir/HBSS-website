@@ -83,18 +83,97 @@ export default function HBSSLandingPage() {
   ];
 
   const skillCourses = [
-    { badge: "Tech Track", title: "Data Analytics Masterclass", tagline: "Turn raw data into business intelligence", mode: "Onsite & Live Online", features: ["SQL, Advanced Excel & Power BI Dashboards", "Python for exploratory data analysis", "Portfolio project development"], icon: BarChart3 },
-    { badge: "Next-Gen AI", title: "Artificial Intelligence & ML", tagline: "Applied machine learning & prompt engineering", mode: "Onsite & Live Online", features: ["Core ML algorithms & deep learning fundamentals", "Generative AI workflow automation", "Practical API implementations"], icon: BrainCircuit },
-    { badge: "Communication", title: "Spoken English & Communication", tagline: "Fluency, corporate articulation & public speaking", mode: "Onsite & Live Online", features: ["Accent neutralization & grammar correction", "Interview skills & boardroom debate drills", "Interactive group conversations"], icon: MessageSquare },
-    { badge: "Career Ready", title: "E-Learning & Digital Skills", tagline: "Modern digital tools, freelancing & workflows", mode: "Onsite & Live Online", features: ["Remote collaboration & cloud productivity", "Freelancing marketplace mechanics", "Hands-on tool mastery"], icon: Laptop }
+    { 
+      badge: "Tech Track", 
+      title: "Data Analytics Masterclass", 
+      tagline: "Turn raw data into business intelligence", 
+      mode: "Onsite & Live Online", 
+      features: [
+        "MS Excel (Basic to Advanced) & Power Query, SQL", 
+        "Python for Data Analysis (Numpy, Pandas, Matplotlib, Seaborn)", 
+        "Power BI, Tableau, Web Scraping & Capstone Projects"
+      ], 
+      icon: BarChart3 
+    },
+    { 
+      badge: "Next-Gen AI", 
+      title: "Artificial Intelligence & ML", 
+      tagline: "Applied machine learning & prompt engineering", 
+      mode: "Onsite & Live Online", 
+      features: [
+        "Python Basics, NumPy, Pandas, Matplotlib & Seaborn", 
+        "Supervised, Unsupervised & Reinforcement Learning", 
+        "Deep Learning, Neural Networks, NLP, LLMs & Capstone Project"
+      ], 
+      icon: BrainCircuit 
+    },
+    { 
+      badge: "Programming", 
+      title: "Python Programming", 
+      tagline: "From syntax foundations to object-oriented development", 
+      mode: "Onsite & Live Online", 
+      features: [
+        "Environment setup, syntax, variables, and built-in functions", 
+        "Data structures (Lists, Tuples, Dictionaries, Sets) & loops", 
+        "OOP, file handling, modules & conditional workflows"
+      ], 
+      icon: Code2 
+    },
+    { 
+      badge: "Productivity", 
+      title: "Office Automation", 
+      tagline: "Essential workplace documentation & computing tools", 
+      mode: "Onsite & Live Online", 
+      features: [
+        "Professional document creation and formatting with MS Word", 
+        "Data organization, formulas, and spreadsheets with Excel", 
+        "Dynamic presentation design and delivery with PowerPoint"
+      ], 
+      icon: Laptop 
+    },
+    { 
+      badge: "Communication", 
+      title: "Spoken English & Communication", 
+      tagline: "Fluency, corporate articulation & public speaking", 
+      mode: "Onsite & Live Online", 
+      features: [
+        "Accent neutralization & grammar correction drills", 
+        "Interview skills, boardroom debates & public speaking", 
+        "Interactive group conversations and active listening"
+      ], 
+      icon: MessageSquare 
+    },
+    { 
+      badge: "Career Ready", 
+      title: "E-Learning & Digital Skills", 
+      tagline: "Modern digital tools, freelancing & workflows", 
+      mode: "Onsite & Live Online", 
+      features: [
+        "Remote collaboration & cloud productivity suites", 
+        "Freelancing marketplace mechanics & profile building", 
+        "Hands-on tool mastery for remote work efficiency"
+      ], 
+      icon: GraduationCap 
+    }
   ];
 
-  // SAMPLE quotes — not real feedback yet. Swap in genuine student/parent testimonials before launch.
+  
   const testimonials = [
-    { quote: "Switched to the AI course after F.Sc. Practical, not just theory — I could actually use what I learned.", name: "Sample Student", program: "AI Certification" },
-    { quote: "My daughter's grades in Matric improved once the coaching matched the board pattern properly.", name: "Sample Parent", program: "Matric Coaching" },
-    { quote: "Online classes meant I could keep my job and still finish the Data Analytics certification.", name: "Sample Student", program: "Data Analytics" },
-    { quote: "The MDCAT batch gave me a proper routine — mocks every week made the real exam feel familiar.", name: "Sample Student", program: "MDCAT Prep" }
+    { 
+      quote: "I am currently studying in 2nd Year, and I joined this academy in my 1st Year. My experience with the academy has been excellent from the very beginning. The staff is well-educated, cooperative, and supportive. Alongside my 2nd Year studies, I am also learning skills and working towards Data Analytics.", 
+      name: "Muhammad Faizan Khan", 
+      program: "Intermediate & Data Analytics Student" 
+    },
+    { 
+      quote: "I am very grateful to God that I have found a good institute with a good guide who teaches me in a way that I can easily understand and follow, and I see the feedback in myself and I am very, very satisfied with it.", 
+      name: "Alok Gill", 
+      program: "Student" 
+    },
+    { 
+      quote: "I am Sobia Zaman, mother of Muhammad Emaad Ali. He is enrolled in the Data Analytics course at this institute. The course content is excellent and the instructors are very professional. It has been a great learning experience for my son.", 
+      name: "Sobia Zaman", 
+      program: "Parent of Data Analytics Student" 
+    }
   ];
 
   useEffect(() => {
@@ -369,7 +448,7 @@ export default function HBSSLandingPage() {
           <div className="mt-12">
             
             {activeTab === 'skills' && (
-              <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {skillCourses.map((item, idx) => {
                   const Icon = item.icon;
                   return (
