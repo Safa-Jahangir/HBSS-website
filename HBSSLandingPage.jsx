@@ -32,14 +32,35 @@ import {
 } from 'lucide-react';
 
 // Color Palette Constants
-const INK = '#17335F';
+const INK = '#103B78';
 const INK_SOFT = '#54607A';
 const PAPER = '#F7F8FA';
 const CARD = '#FFFFFF';
 const GOLD = '#8A6B12';
-const GOLD_SOFT = '#E8B23D';
-const SKY = '#2F6FB0';
+const GOLD_SOFT = '#FFC72C';
+const SKY = '#3F86D1';
 const LINE = '#DFE3EA';
+
+// ── Google Sheet connection ──────────────────────────────────────────────
+// 1. Create a Google Sheet with header row: Timestamp | Source | Full Name | Phone | Program | Mode
+// 2. Extensions → Apps Script, paste the doPost script from the setup notes, deploy as a Web App
+
+const SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyRjhmwrZPe7mDIo8vHOSG6_O6YjaS3PMllmtyNo9kAzSq2QwfmVxtUC5TjHLiY0fjKtg/exec';
+
+async function submitToSheet(fields) {
+  if (!SHEET_WEBAPP_URL || SHEET_WEBAPP_URL.includes('PASTE_YOUR')) {
+    console.warn('HBSS: SHEET_WEBAPP_URL is not set yet — this submission was NOT saved to the sheet.');
+    return false;
+  }
+  try {
+    const body = new URLSearchParams({ timestamp: new Date().toLocaleString(), ...fields });
+    await fetch(SHEET_WEBAPP_URL, { method: 'POST', body });
+    return true;
+  } catch (err) {
+    console.error('HBSS: Failed to save submission to the sheet', err);
+    return false;
+  }
+}
 
 export default function HBSSLandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,16 +70,43 @@ export default function HBSSLandingPage() {
   const [activeFaq, setActiveFaq] = useState(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [testimonialPaused, setTestimonialPaused] = useState(false);
+  const [applySubmitting, setApplySubmitting] = useState(false);
+  const [contactSubmitting, setContactSubmitting] = useState(false);
 
   const handleOpenApply = (programName = '') => {
     setSelectedProgram(programName);
     setApplyModalOpen(true);
   };
 
-  const handleApplySubmit = (e) => {
+  const handleApplySubmit = async (e) => {
     e.preventDefault();
+    const form = new FormData(e.target);
+    setApplySubmitting(true);
+    await submitToSheet({
+      source: 'Application Modal',
+      program: selectedProgram || form.get('program') || 'Admissions',
+      fullName: form.get('fullName') || '',
+      mode: form.get('mode') || '',
+      phone: form.get('phone') || '',
+    });
+    setApplySubmitting(false);
     alert(`Application submitted successfully for ${selectedProgram || 'Admissions'}! Our counselor will reach out shortly.`);
     setApplyModalOpen(false);
+  };
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    setContactSubmitting(true);
+    await submitToSheet({
+      source: 'Contact Form',
+      fullName: form.get('fullName') || '',
+      phone: form.get('phone') || '',
+      program: form.get('program') || '',
+    });
+    setContactSubmitting(false);
+    alert('Inquiry submitted! We will contact you soon.');
+    e.target.reset();
   };
 
   const fadeInUp = {
